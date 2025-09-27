@@ -70,16 +70,48 @@ The package expects fluorescence lifetime data in one of these formats:
 2. **Raw time series**: NumPy .npy files with dimensions (rows × cols × time)
 3. **Simulation data**: Generated internally for testing and validation
 
-## Usage
+## Project Structure
 
-### Basic Workflow
+This project follows a clean, organized structure for easy navigation and maintenance:
 
-1. **Load or generate data**
-2. **Preprocess time series (if needed)**
-3. **Convert to lifetime events**
-4. **Run EM estimation for multiple k values**
-5. **Compare models using BIC**
-6. **Visualize results**
+```
+Fluorescence-Lifetime-Decomposition/
+├── src/                 # Source code
+│   ├── FullSudy.R              # Multi-k model analysis
+│   ├── simulation2k.R          # Simulation study
+│   ├── twoDyeDataAnalysis.R    # Data preprocessing pipeline
+│   ├── em_algorithm.cpp        # C++ EM implementation
+│   └── README.md              # Source code documentation
+├── data/               # Data files
+│   ├── df_lifetimes.RData     # Preprocessed lifetime events
+│   └── README.md             # Data documentation
+├── docs/               # Documentation
+│   ├── README.md             # Main documentation
+│   ├── api/                  # Technical documentation
+│   │   ├── FullSudy_documentation.md
+│   │   ├── simulation2k_documentation.md
+│   │   ├── twoDyeDataAnalysis_documentation.md
+│   │   ├── em_algorithm_documentation.md
+│   │   └── data_formats_documentation.md
+├── examples/           # Usage examples and tutorials
+│   ├── usage_examples.md     # Comprehensive tutorials
+│   └── README.md            # Examples documentation
+├── tests/              # Test suite
+│   ├── test_basic_functionality.R  # Basic functionality tests
+│   └── README.md           # Test documentation
+├── output/             # Generated results (auto-created)
+├── scripts/            # Utility scripts (future use)
+├── .gitignore         # Git ignore rules
+├── Makefile           # Build and test automation
+└── README.md          # This file
+```
+
+### Getting Started
+
+1. **Quick Analysis**: Run `make test` to verify everything works
+2. **Basic Usage**: See `examples/usage_examples.md` for tutorials
+3. **Development**: Check `src/README.md` for source code details
+4. **Documentation**: Browse `docs/api/` for technical details
 
 ### Quick Start Example
 
@@ -91,10 +123,10 @@ library(dplyr)
 library(viridis)
 
 # Load preprocessed lifetime data
-load("df_lifetimes.RData")
+load("data/df_lifetimes.RData")
 
 # Source the C++ EM implementation
-Rcpp::sourceCpp("em_algorithm.cpp")
+Rcpp::sourceCpp("src/em_algorithm.cpp")
 
 # Prepare data for analysis
 df_events <- df_lifetimes
@@ -103,7 +135,7 @@ unique_pixels <- unique(df_events$pixel)
 df_events$pixel_idx <- as.integer(factor(df_events$pixel, levels = unique_pixels))
 
 # Run EM for k=2 model
-source("twoDyeDataAnalysis.R")  # Contains the main analysis functions
+source("src/twoDyeDataAnalysis.R")  # Contains the main analysis functions
 
 # Visualize results
 # (Results will be displayed as plots and saved to workspace)
@@ -156,15 +188,22 @@ for(k in 1:5){
 
 ### Core Scripts
 
-- **`FullSudy.R`**: Main analysis script for multi-k model comparison (k=1-5)
-- **`twoDyeDataAnalysis.R`**: Complete pipeline for real photon decay data analysis
-- **`simulation2k.R`**: Simulation study with k=2 and k=3 model comparison
-- **`em_algorithm.cpp`**: C++ implementation of the EM algorithm with spatial regularization
+- **`src/FullSudy.R`**: Main analysis script for multi-k model comparison (k=1-5)
+- **`src/twoDyeDataAnalysis.R`**: Complete pipeline for real photon decay data analysis
+- **`src/simulation2k.R`**: Simulation study with k=2 and k=3 model comparison
+- **`src/em_algorithm.cpp`**: C++ implementation of the EM algorithm with spatial regularization
 
 ### Data Files
 
-- **`df_lifetimes.RData`**: Preprocessed lifetime events (τ, i, j coordinates)
+- **`data/df_lifetimes.RData`**: Preprocessed lifetime events (τ, i, j coordinates)
 - **`best_fit.npy`**: Example raw fluorescence time series data
+
+### Documentation
+
+- **`docs/README.md`**: This main documentation file
+- **`docs/api/`**: Detailed API and technical documentation
+- **`examples/usage_examples.md`**: Comprehensive tutorials and examples
+- **`tests/test_basic_functionality.R`**: Test suite for validation
 
 ## Output and Visualization
 

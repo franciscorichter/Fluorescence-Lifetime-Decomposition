@@ -1,0 +1,77 @@
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# R generated files
+*.RData
+*.Rhistory
+*.Rapp.history
+*.Rprofile
+.Renviron
+.Rout
+
+# Output files
+output/
+*.pdf
+*.png
+*.jpg
+*.gif
+*.mp4
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.code-workspace
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# R package files
+*.tar.gz
+*.tgz
+
+# Build artifacts
+*.o
+*.obj
+*.dll
+*.exe
+*.so
+
+# LaTeX files
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+
+# Documentation build
+docs/_build/
+*.doctree
+
+# Project specific
+em_results_*.RData
+analysis_results_*.RData
+*.npy  # Processed data files
